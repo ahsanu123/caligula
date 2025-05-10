@@ -63,6 +63,7 @@ learn rust embassy ecosistem with esp-rs
 - ~~map all predefined SORE button and led~~
 - learn to make peripheral with hal
 - learn about interupt and dma
+- learn how embassy and esp-hal is connected
 - learn and explore embassy docs for esp32
 - learn embassy feature and learn embassy async
 - search for match sensor and actuator
@@ -72,6 +73,7 @@ learn rust embassy ecosistem with esp-rs
 
 - 23 march 2025 20:02, basic esp rust setup with embassy, esp-println and defmt for logging is work
 - ⛑️ TOOD: make project to have test like std rust with defmt, so its easier to create and unit testing in no_std
+- 10 Mei 2025 13:06, done skiming https://docs.esp-rs.org/book
 
 ### 🌼 Reference 
 
