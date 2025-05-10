@@ -3,6 +3,7 @@
 
 use embassy_executor::Spawner;
 use embassy_time::{Duration, Timer};
+
 use esp_backtrace as _;
 use esp_hal::clock::CpuClock;
 use esp_hal::timer::timg::TimerGroup;
@@ -10,20 +11,8 @@ use esp_println as _;
 
 extern crate alloc;
 
-// #[panic_handler]
-// fn panic(_: &core::panic::PanicInfo) -> ! {
-//     loop {}
-// }
-
-// #[embassy_executor::task]
-// async fn run() {
-//     loop {}
-// }
-
 #[esp_hal_embassy::main]
 async fn main(spawner: Spawner) {
-    // generator version: 0.3.1
-
     let config = esp_hal::Config::default().with_cpu_clock(CpuClock::max());
     let peripherals = esp_hal::init(config);
     esp_println::logger::init_logger_from_env();
@@ -54,6 +43,4 @@ async fn main(spawner: Spawner) {
 
         Timer::after(Duration::from_secs(5)).await;
     }
-
-    // for inspiration have a look at the examples at https://github.com/esp-rs/esp-hal/tree/esp-hal-v1.0.0-beta.0/examples/src/bin
 }

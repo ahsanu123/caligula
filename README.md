@@ -47,6 +47,7 @@ there is built in input (tact switch) and 2 led (connected to PNP bjt, one is co
 - to build release, flash, and monitor run `cargo run --release`, it will run runner `espflash  flash --monitor -L defmt` from Config.toml inside `.cargo` folder
 - to run monitor only (no build) run `espflash monitor -L defmt --elf target/xtensa-esp32-none-elf/release/caligula`, you need add -L for logging format, and add --elf for defmt know about program.
 - run `espflash board-info` to get connected board information
+- to flash and run, `cargo run --release --bin rust_file_name.rs`
 
 ### 🧑‍🍳 Recipes
 

@@ -6,7 +6,8 @@ use embassy_time::{Duration, Timer};
 
 use esp_backtrace as _;
 use esp_hal::{
-    gpio::{Level, Output, OutputConfig},
+    gpio::{Input, InputConfig, Level, Output, OutputConfig, Pull},
+    handler,
     timer::timg::TimerGroup,
 };
 
@@ -30,19 +31,26 @@ async fn main(spawner: Spawner) {
     let timer_group_zero = TimerGroup::new(peripherals.TIMG0);
     esp_hal_embassy::init(timer_group_zero.timer0);
 
-    let mut led1 = Output::new(peripherals.GPIO32, Level::Low, OutputConfig::default());
-    led1.set_high();
+    let mut led = Output::new(peripherals.GPIO4, Level::Low, OutputConfig::default());
+    led.set_low();
 
-    let mut led2 = Output::new(peripherals.GPIO4, Level::Low, OutputConfig::default());
-    led2.set_low();
+    let button = Input::new(
+        peripherals.GPIO22,
+        InputConfig::default().with_pull(Pull::Up),
+    );
 
     spawner.spawn(run()).ok();
 
     loop {
-        led1.toggle();
-        led2.toggle();
-
-        defmt::println!("Togling Led");
-        Timer::after(Duration::from_millis(3_000)).await;
+        if button.is_low() {
+            led.toggle();
+            defmt::println!("Togling Led");
+        } else {
+            led.set_high();
+        }
+        Timer::after(Duration::from_millis(100)).await;
     }
 }
+
+#[handler]
+fn handler() {}
