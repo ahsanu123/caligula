@@ -62,10 +62,12 @@ there is built in input (tact switch) and 2 led (connected to PNP bjt, one is co
 learn rust embassy ecosistem with esp-rs 
 
 - ~~map all predefined SORE button and led~~
+- read multithread chapter in rust book
 - learn to make peripheral with hal
 - learn about interupt and dma
 - learn how embassy and esp-hal is connected
 - learn and explore embassy docs for esp32
+- read embassy_sync for multithread in embassy
 - learn embassy feature and learn embassy async
 - search for match sensor and actuator
 - make TMC2209 Stepper motor driver for actuator
