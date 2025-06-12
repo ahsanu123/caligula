@@ -43,11 +43,17 @@ there is built in input (tact switch) and 2 led (connected to PNP bjt, one is co
 
 ### 🎶 Useful Notes
 
+```shell
+ To get started, you need to set up some environment variables by running: '. /home/ah/export-esp.sh'
+        This step must be done every time you open a new terminal.
+            See other methods for setting the environment in https://esp-rs.github.io/book/installation/riscv-and-xtensa.html#3-set-up-the-environment-variables
+```
 - run `get_esprs` to add needed compiler to system PATH (`alias get_esprs='export-esp.sh'`)
 - to build release, flash, and monitor run `cargo run --release`, it will run runner `espflash  flash --monitor -L defmt` from Config.toml inside `.cargo` folder
 - to run monitor only (no build) run `espflash monitor -L defmt --elf target/xtensa-esp32-none-elf/release/caligula`, you need add -L for logging format, and add --elf for defmt know about program.
 - run `espflash board-info` to get connected board information
 - to flash and run, `cargo run --release --bin rust_file_name.rs`
+- embassy-sync blog -> https://blog.theembeddedrustacean.com/sharing-data-among-tasks-in-rust-embassy-synchronization-primitives
 
 ### 🧑‍🍳 Recipes
 
