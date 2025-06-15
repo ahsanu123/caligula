@@ -44,10 +44,42 @@ there is built in input (tact switch) and 2 led (connected to PNP bjt, one is co
 ### 🎶 Useful Notes
 
 ```shell
- To get started, you need to set up some environment variables by running: '. /home/ah/export-esp.sh'
-        This step must be done every time you open a new terminal.
-            See other methods for setting the environment in https://esp-rs.github.io/book/installation/riscv-and-xtensa.html#3-set-up-the-environment-variables
+To get started, you need to set up some environment variables by running: '. /home/ah/export-esp.sh'
+This step must be done every time you open a new terminal.
+See other methods for setting the environment in https://esp-rs.github.io/book/installation/riscv-and-xtensa.html#3-set-up-the-environment-variables
 ```
+
+- to use usb from windows inside wsl you need bridge usb device from windows to wsl with `usbipd`
+
+  ```shell
+  C:\Windows\System32> usbipd list
+  Connected:
+  BUSID  VID:PID    DEVICE                                                        STATE
+  1-1    feed:0ffa  USB Input Device                                              Not shared
+  1-2    0000:3825  USB Input Device                                              Not shared
+  1-4    0bda:0129  Realtek USB 2.0 Card Reader                                   Not shared
+  1-5    13d3:56cb  USB2.0 HD IR UVC WebCam                                       Not shared
+  1-6    1366:0101  J-Link driver                                                 Not shared
+  1-10   8087:0026  Intel(R) Wireless Bluetooth(R)                                Not shared
+
+  Persisted:
+  GUID                                  DEVICE
+
+
+  C:\Windows\System32> usbipd bind --busid 1-6
+
+  C:\Windows\System32> usbipd attach --wsl --busid 1-6
+  usbipd: info: Using WSL distribution 'Arch' to attach; the device will be available in all WSL 2 distributions.
+  usbipd: info: Detected networking mode 'nat'.
+  usbipd: info: Using IP address 172.27.144.1 to reach the host.
+
+  C:\Windows\System32>
+  ```
+
+
+  then you can access the usb device as in linux
+
+
 - run `get_esprs` to add needed compiler to system PATH (`alias get_esprs='export-esp.sh'`)
 - to build release, flash, and monitor run `cargo run --release`, it will run runner `espflash  flash --monitor -L defmt` from Config.toml inside `.cargo` folder
 - to run monitor only (no build) run `espflash monitor -L defmt --elf target/xtensa-esp32-none-elf/release/caligula`, you need add -L for logging format, and add --elf for defmt know about program.

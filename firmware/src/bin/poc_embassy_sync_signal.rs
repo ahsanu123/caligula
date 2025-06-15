@@ -62,6 +62,9 @@ async fn apple_producer(rng_mutex: &'static SharedRNG, apples: &'static SharedAp
         apples.borrow_mut().push(apple.clone());
 
         defmt::println!("producing apple {:?}, {}", apple, apple_len);
+        if apple_len >= 10 {
+            EAT_SIGNAL.signal(ConsumeCommand::EatNow);
+        }
         Timer::after(Duration::from_millis(1_000)).await
     }
 }
