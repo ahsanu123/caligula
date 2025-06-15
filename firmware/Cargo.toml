@@ -67,6 +67,7 @@ esp-wifi = { version = "0.13.0", features = [
   "log",
   "wifi",
 ] }
+embassy-sync = "0.7.0"
 
 [profile.dev]
 # Rust debug is too slow.
