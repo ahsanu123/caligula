@@ -1,14 +1,16 @@
-[target.xtensa-esp32-none-elf]
-# runner = "probe-rs run --chip=esp32 --always-print-stacktrace --no-location --catch-hardfault"
-runner = "espflash  flash --monitor -L defmt"
+[alias]
+esp32   = "run --release --no-default-features --features=esp32 --target=xtensa-esp32-none-elf"
 
-[env]
+[target.xtensa-esp32-none-elf]
+runner = "espflash  flash --monitor -L defmt"
 
 [build]
 target = "xtensa-esp32-none-elf"
 rustflags = [
   "-C",
   "link-arg=-nostartfiles",
+  # "-C", "link-arg=-Tstack.x",
+  # "-C", "link-arg=-Wl,-Map=memory.map",
 
   # source of this linker flag 
   # https://github.com/esp-rs/no_std-training/blob/6ba7c67540334a09a41b75a11b6872f64dc7e54f/intro/defmt/.cargo/config.toml
@@ -27,6 +29,10 @@ rustflags = [
   "force-frame-pointers",
 ]
 
+[env]
+ESP_LOG = "info"
 
 [unstable]
 build-std = ["alloc", "core"]
+
+

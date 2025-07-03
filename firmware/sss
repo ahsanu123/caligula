@@ -1,0 +1,1 @@
+_stack_start_cpu0 = 0x3FFDE000;  /* Pick address above used RAM */
