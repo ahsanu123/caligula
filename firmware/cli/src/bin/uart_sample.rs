@@ -74,6 +74,11 @@ async fn main(spawner: Spawner) {
     let config = Config::default()
         .with_rx(RxConfig::default().with_fifo_full_threshold(READ_BUF_SIZE as u16));
 
+    // let mut uart0 = Uart::new(peripherals.UART0, config)
+    //     .unwrap()
+    //     .with_tx(tx_pin)
+    //     .with_rx(rx_pin);
+
     let mut uart0 = Uart::new(peripherals.UART0, config)
         .unwrap()
         .with_tx(tx_pin)

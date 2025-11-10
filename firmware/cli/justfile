@@ -1,0 +1,22 @@
+# flash debug
+fd: 
+  espflash flash --chip esp32 target/xtensa-esp32-none-elf/debug/cli
+
+f binName: 
+  espflash flash --chip esp32 target/xtensa-esp32-none-elf/debug/{{binName}}
+
+# monitor with tio, use this. close with ctrl + t then q
+mt: 
+  tio -b 115200 -e -t --input-mode line  /dev/ttyUSB0
+# monitor
+m: 
+  espflash monitor --chip esp32
+
+# monitor with picocom, close with ctrl a then ctrl x
+mp:
+ picocom /dev/ttyUSB0 -b 115200 --echo --omap crlf --imap lfcrlf
+
+# binary list 
+bl: 
+  cargo run --bin
+
