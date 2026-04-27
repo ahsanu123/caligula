@@ -3,10 +3,10 @@
 <p align="center">
   <img src="./caligula-logo.svg"/> <br/>
 </p>
-
---- 
+ 
  <img src="./hardware/docs/caligula.svg"/> <br/>
-
+ <img src="./hardware/docs/caligula_sim_v1.png"/> <br/>
+ <img src="./hardware/docs/caligula_sim_v1_result.png"/> <br/>
 
 ### 🎶 Useful Notes
 
