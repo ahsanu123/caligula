@@ -92,3 +92,5 @@ learn rust embassy ecosistem with esp-rs
 - [embassy-setup-on-esp32](https://pg3.dev/post/13)
 - [embassy-book](https://embassy.dev/book/)
 - [esp-build](https://github.com/esp-rs/rust-build)
+- https://github.com/zpg6/esp32-sdcard
+- https://github.com/rust-embedded-community/embedded-sdmmc-rs
