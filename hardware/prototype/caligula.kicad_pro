@@ -700,7 +700,7 @@
         "uuid": "3aba722e-486f-4add-9a36-31452b9909aa"
       }
     ],
-    "used_designators": "SW7,#PWR22-23,#PWR36,#PWR38-39,#PWR42-44,#PWR48-49,#PWR52-55,#PWR58,#PWR60-61,#PWR84-87,C18-20,Card1,J4,J9,U4,U7,U9,JP2-3,R10,R26-28,R34,R36,R38-40",
+    "used_designators": "C9,R33,#PWR53,#PWR58",
     "variants": []
   },
   "sheets": [
