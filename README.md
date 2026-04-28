@@ -1,45 +1,12 @@
 # 🥡 Introduction 
 
-
 <p align="center">
   <img src="./caligula-logo.svg"/> <br/>
 </p>
 
+--- 
+ <img src="./hardware/docs/caligula.svg"/> <br/>
 
-Caligula is long project to research and create automatic tofu coagulant machine.
-
-### 🪪 IO Notes 
-
-currently for development Caligula is use [Sore](https://github.com/ahsanu123/solder-reflow), on Sore 
-there is built in input (tact switch) and 2 led (connected to PNP bjt, one is connected to built in SSR) 
-
-**INPUT**
-
-|Schematic Name | Component Name | Connected PIN |
-|---------------|----------------|---------------|
-| SW3           | IO0            | IO0           | 
-| SW4           | IN2            | IO26          |
-| SW5           | IN3            | IO25          |
-| SW6           | IN1            | IO27          |
-| SW7           | IN4            | IO22          |
-
-**OUTPUT**
-
-|Schematic Name | Component Name | Connected PIN |
-|---------------|----------------|---------------|
-| SSR1          | SSR1           | IO4           | 
-| SSR2          | SSR2           | IO32          |
-
-<details>
-  <summary>Expand to see schematic </summary>
-
-  ![image](https://github.com/user-attachments/assets/1164a408-79bc-4757-b13f-f8b0a7181529)
-
-  ![image](https://github.com/user-attachments/assets/280a7ee2-9fb8-4b7c-9d4d-2b3ddccd6f85)
-  
-  ![image](https://github.com/user-attachments/assets/b4e79147-5fbc-4c1e-b486-f3c391e575ed)
-  
-</details>
 
 ### 🎶 Useful Notes
 
@@ -100,13 +67,13 @@ See other methods for setting the environment in https://esp-rs.github.io/book/i
 learn rust embassy ecosistem with esp-rs 
 
 - ~~map all predefined SORE button and led~~
-- read multithread chapter in rust book
-- learn to make peripheral with hal
-- learn about interupt and dma
-- learn how embassy and esp-hal is connected
-- learn and explore embassy docs for esp32
-- read embassy_sync for multithread in embassy
-- learn embassy feature and learn embassy async
+- ~~read multithread chapter in rust book~~
+- ~~learn to make peripheral with hal~~
+- learn about interupt and ~~dma~~
+- ~~learn how embassy and esp-hal is connected~~
+- ~~learn and explore embassy docs for esp32~~
+- ~~read embassy_sync for multithread in embassy~~
+- ~~learn embassy feature and learn embassy async~~
 - search for match sensor and actuator
 - make TMC2209 Stepper motor driver for actuator
 
