@@ -1,6 +1,6 @@
 *.lck
 .history/
-.history-*/
+.history_*/
 *-backups/
 _autosave*
 *auto_saved_files*
