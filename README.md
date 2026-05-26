@@ -79,7 +79,7 @@ learn rust embassy ecosistem with esp-rs
 - 23 march 2025 20:02, basic esp rust setup with embassy, esp-println and defmt for logging is work
 - ⛑️ TOOD: make project to have test like std rust with defmt, so its easier to create and unit testing in no_std
 - 10 Mei 2025 13:06, done skiming https://docs.esp-rs.org/book
-- 1 Mei 2026 18:10, finish routing phase one
+- 1 Mei 2026 18:10, finish routing phase one 
 
 ### 🌼 Reference 
 
@@ -94,3 +94,4 @@ learn rust embassy ecosistem with esp-rs
 - https://github.com/zpg6/esp32-sdcard
 - https://github.com/rust-embedded-community/embedded-sdmmc-rs
 - [designing with ph electrodes](https://www.ti.com/lit/an/snoa529a/snoa529a.pdf)
+- [tauri sidecar](https://tauri.app/develop/sidecar/)
