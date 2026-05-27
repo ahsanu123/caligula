@@ -1,0 +1,6 @@
+obj/
+bin/
+
+# exlude all inside binary except .keep file
+binaries/*
+!binaries/.keep

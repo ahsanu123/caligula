@@ -1,0 +1,19 @@
+hostTupple := `rustc --print host-tuple`
+
+# build Release
+br: 
+  dotnet build --sc --nologo --configuration Release /P:PublishSingleFile=true
+
+# publish release
+pr: 
+  dotnet publish --sc --nologo --configuration Release /P:PublishSingleFile=true
+
+# publish release api 
+pra: 
+  dotnet publish ./Caligula.API/Caligula.API.csproj --sc --nologo --configuration Release /P:PublishSingleFile=true
+
+# publish release api packaged
+prap: 
+  rm -rf ./binaries/*
+  dotnet publish ./Caligula.API/Caligula.API.csproj --sc --nologo --configuration Release /P:PublishSingleFile=true
+  cp ./Caligula.API/bin/Release/net9.0/linux-x64/publish/Caligula.API ./binaries/Caligula.API-{{hostTupple}}
