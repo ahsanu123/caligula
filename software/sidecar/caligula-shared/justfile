@@ -1,0 +1,14 @@
+# generate open api 
+goa: 
+  rm -rf ./src/apis
+  rm -rf ./src/models
+  rm -rf ./openapi-docs
+
+  openapi-generator-cli generate -g rust \
+  -i https://raw.githubusercontent.com/OpenAPITools/openapi-generator/master/modules/openapi-generator/src/test/resources/3_0/petstore.yaml \
+  -o ./openapi
+
+  mv ./openapi/src/apis ./src/apis
+  mv ./openapi/src/models ./src/models
+  mv ./openapi/docs ./openapi-docs/
+  rm -rf ./openapi

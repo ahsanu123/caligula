@@ -17,3 +17,12 @@ prap:
   rm -rf ./binaries/*
   dotnet publish ./Caligula.API/Caligula.API.csproj --sc --nologo --configuration Release /P:PublishSingleFile=true
   cp ./Caligula.API/bin/Release/net9.0/linux-x64/publish/Caligula.API ./binaries/Caligula.API-{{hostTupple}}
+
+tr testName: 
+  cargo test {{testName}} -- --nocapture
+
+tl: 
+  cargo test -- --list
+
+tf testName: 
+  cargo test -- --list | rg -i {{testName}}

@@ -1,3 +1,6 @@
 [submodule "libraries"]
 	path = hardware/libraries
 	url = https://github.com/ahsanu123/mkl.git
+[submodule "phiniks"]
+	path = software/sidecar/phiniks
+	url = https://github.com/ahsanu123/phiniks.git
