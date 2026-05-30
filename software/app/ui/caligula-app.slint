@@ -1,0 +1,13 @@
+import { Button, VerticalBox } from "std-widgets.slint";
+import { SButton } from "sui/index.slint";
+
+export component AppWindow inherits Window {
+    VerticalLayout {
+        Rectangle {
+            SButton {
+                theme: Primary;
+                text: "Click Me!";
+            }
+        }
+    }
+}

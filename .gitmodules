@@ -4,3 +4,6 @@
 [submodule "phiniks"]
 	path = software/sidecar/phiniks
 	url = https://github.com/ahsanu123/phiniks.git
+[submodule "surealism-ui"]
+	path = software/app/ui/sui
+  url = https://github.com/Surrealism-All/SurrealismUI.git
