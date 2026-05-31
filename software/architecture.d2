@@ -1,0 +1,195 @@
+vars: {
+  project_name: Caligula
+}
+
+software: {
+  label: Software
+
+  app -> sidecar: communicating through http
+
+  app: {
+    label: Application
+
+    description: {
+      shape: page
+      label: |`md
+        ### Application Description
+        application will using Slint for user interface and  
+        Surealism UI for the ui library, we will not using  
+        direct call to sidecar function, rather we will use  
+        api call served by `caligula_api`, so other application  
+        client like web or mobile able to develop by relying  
+        on the `caligula_api`
+      `|
+    }
+  }
+
+  sidecar: {
+    label: Sidecar
+
+    description: {
+      shape: page
+      label: |`md
+        ### Sidecar Description 
+        side car is software that support app to run and serving as  
+        main gate for other client application, in this project  
+        sidecar is a server with Actix-Web
+      `|
+    }
+
+    caligula_api: {
+      description: |`md
+        ### Description 
+        caligula_api will serving endpoint that will be use by  
+        application
+      `|
+    }
+
+    caligula_driver: {
+      description: |`md
+        ### Description 
+        caligula_driver will contain custom Flatbuffer message  
+        and USB serial to communicate with firmware
+      `|
+    }
+
+    caligula_migration: {
+      recipe: Recipe {
+        shape: sql_table
+        RecipeId: int {constraint: primary_key}
+        CreatedDate: datetime
+        Nigari: int
+      }
+
+      setting: Setting {
+        shape: sql_table
+        SettingId: int {constraint: primary_key}
+        CreatedDate: datetime
+        MixingSpeed: int (in rpm)
+        MixingTime: int (in second)
+      }
+
+      History: History {
+        shape: sql_table
+        HistoryId: int {constraint: primary_key}
+        CreatedDate: datetime
+        Result: string
+      }
+
+      description: |`md
+        ### Description 
+        caligula_migration will contain simple migration logic  
+        for saving data into Firebird SQL in embedded mode (no server)
+      `|
+    }
+
+    caligula_shared: {
+      description: |`md
+        ### Description 
+        caligula_shared is place to save code that possibly  
+        will used in other client library other than the api.  
+        for now it will contain `openapi-generator-cli` rust  
+        request.
+      `|
+    }
+  }
+}
+
+electronic_hardware: {
+  label: Electronic Hardware
+
+  description: {
+    shape: page
+    label: |`md
+      ### Description 
+      for now hardware will use ESP32-S3 it will communicate with  
+      application with USB serial through Flatbuffer message custom  
+      protocol.
+    `|
+  }
+
+  battery: Battery
+  power_supply: 5V power supply
+  dppm: DPPM BQ24075
+  plus_minus_3v3: Plus Minus 3.3V converter
+  ph_preamp: PH pre-amplifier
+  ph_sensor: PH Sensor
+  esp32_s3: ESP32-S3
+  sepic_3v3: Buck Boost converter TPS63001
+  usb: USB
+  usb_serial: USB serial with CH340C
+  microsd: Micro SD card
+  lcd: Generic SPI LCD TFT
+  max31865: MAX31865 PT100 SPI Driver
+
+  power_supply -> dppm
+  dppm <-> battery
+  dppm -> plus_minus_3v3
+  dppm -> sepic_3v3
+  sepic_3v3 -> esp32_s3
+  ph_preamp -> esp32_s3
+  usb -> esp32_s3
+  usb_serial -> esp32_s3
+  microsd -> esp32_s3
+  esp32_s3 -> lcd
+  max31865 -> esp32_s3
+  ph_sensor -> ph_preamp
+  plus_minus_3v3 -> ph_preamp
+
+  firmware: {
+    label: Firmware
+
+    description: {
+      shape: page
+      label: |`md
+        ### Firmware Description
+        firmware will contain simple parser from Flatbuffer no_std  
+        it will parse message from the application, and interpret  
+        the action based on predefined command inside firmware.
+      `|
+    }
+  }
+}
+
+mechanical_hardware: {
+  label: Mechanical Hardware
+
+  peristaltic_pump: Peristaltic Pump
+}
+
+general_flow: {
+  shape: sequence_diagram
+
+  op: Operator
+  mechanical_hardware: Mechanical Hardware
+  electronic_hardware: Electronic Hardware
+  firmware: Firmware
+  app: Application
+
+  op -> app: {
+    label: |`md
+      placing coagulation container and click start button on the 
+    `|
+  }
+  app -> app.db_operation: insert history to database
+  app.db_operation -> app.command: prepare command to be send to ESP32
+
+  app.command -> firmware: Send Coagulant command
+
+  loop_when_ph_not_match: while ph is not match {
+    shape: sequence_diagram
+    _.firmware -> _.electronic_hardware: turn on peristaltic pump
+    _.electronic_hardware -> _.mechanical_hardware: adding nigari with pump
+    _.firmware -> _.electronic_hardware: read current ph level
+
+    _.firmware -> _.firmware: check if ph match with nigari recipe
+
+    _.firmware.if_ph_match_with_recipe -> _.app: if ph match with recipe
+  }
+
+  firmware -> app: send complete message
+  app -> op: display complete message
+}
+
+electronic_hardware -> mechanical_hardware: controlling
+software.app <-> electronic_hardware.firmware: with custom flatbuffer message protocol
