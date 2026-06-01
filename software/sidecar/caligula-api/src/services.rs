@@ -8,9 +8,15 @@ use shaku::module;
 pub mod configuration_provider;
 
 module! {
-    ServicesCollection {
-        components  = [ConfigurationProviderImpl],
-        providers = [ConfigurationProviderFactory]
+    pub ServicesCollection {
+        components  = [
+            ConfigurationProviderImpl
+        ],
+        providers = [
+            // NOTE:
+            // for now this here is just sample for using provide in shaku
+            ConfigurationProviderFactory
+        ]
     }
 }
 

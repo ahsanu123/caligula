@@ -1,5 +1,8 @@
 use actix_web::{App, Error, HttpRequest, HttpResponse, HttpServer, middleware, web};
+use caligula_api::services::{ServicesCollection, configuration_provider::ConfigurationProvider};
 use serde::{Deserialize, Serialize};
+use shaku_actix::Inject;
+use std::sync::Arc;
 
 #[derive(Debug, Serialize, Deserialize)]
 struct MyObj {
@@ -28,17 +31,27 @@ async fn index_manual(body: web::Bytes) -> Result<HttpResponse, Error> {
     Ok(HttpResponse::Ok().json(obj)) // <- send response
 }
 
+async fn get_configuration_value(
+    config: Inject<ServicesCollection, dyn ConfigurationProvider>,
+) -> HttpResponse {
+    let config_value = config.get_config();
+    HttpResponse::Ok().json(config_value)
+}
+
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
     env_logger::init_from_env(env_logger::Env::new().default_filter_or("info"));
 
     log::info!("starting HTTP server at http://localhost:8080");
 
-    HttpServer::new(|| {
+    let service_collection = Arc::new(ServicesCollection::builder().build());
+
+    HttpServer::new(move || {
         App::new()
             // enable logger
             .wrap(middleware::Logger::default())
             .app_data(web::JsonConfig::default().limit(4096)) // <- limit size of the payload (global configuration)
+            .app_data(service_collection.clone())
             .service(web::resource("/extractor").route(web::post().to(index)))
             .service(
                 web::resource("/extractor2")
@@ -47,6 +60,7 @@ async fn main() -> std::io::Result<()> {
             )
             .service(web::resource("/manual").route(web::post().to(index_manual)))
             .service(web::resource("/").route(web::post().to(index)))
+            .service(web::resource("/configuration").route(web::get().to(get_configuration_value)))
     })
     .bind(("127.0.0.1", 8080))?
     .run()
