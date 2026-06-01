@@ -1,3 +1,4 @@
 {
-  "connection_string": "todo"
+  "connection_string": "todo",
+  "database_name": "caligula.fdb"
 }
